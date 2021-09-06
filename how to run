@@ -1,0 +1,13 @@
+1. create virtual env:
+	cd ~/envs
+	virtualenv -p python3 banana
+2. activate env:
+	. ~/envs/banana/bin/activate
+3. cd /path/to/entry_apps
+4. run gunicorn:
+	gunicorn --workers=2 --bind=127.0.0.1:4000 --log-level debug flask_entry:app
+5. open another terminal, activate env, cd /path/to/entry_apps
+6. run celery:
+	celery -A celery_entry worker --loglevel=info
+7. open another terminal and test the API:
+	curl -X POST "http://127.0.0.1:4000/hello"
